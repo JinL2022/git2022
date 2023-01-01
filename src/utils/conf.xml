@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<sim time="100" unit="us" phase="5">
+		<log_level>5</log_level>		
+	</sim>
+	<vmon>
+		<info enable="1"/>
+		<delay enable="1" />
+		<bandwidth enable="1" />
+	</vmon>
+	<vcpu id="0" inst="vcpu" freq="1500" bitwidth="256" burst="255" qos="0"  policy="NA">
+		<gen>
+			<round num="3" interval="10" ts_unit="US"/>				
+		</gen>		
+		<pattern>
+			<req cmd="read"  addr="0x00001000" size="4" burst="3" ts_inc="0" ts_iu="NS"/>
+			<req cmd="write" addr="0x00016000" size="4" burst="3" ts_inc="0" ts_iu="NS"/>
+			<req cmd="read"  addr="0x00002000" size="4" burst="3" ts_inc="5" ts_iu="NS"/>		
+		</pattern>
+	</vcpu>
+
+	<vcpu id="1" inst="vnpu" freq="1500" bitwidth="512" burst="255" qos="1"  policy="limiter">
+		<gen>
+			<round num="2" interval="1" ts_unit="US"/>
+			<round num="0" interval="1"  ts_unit="US"/>
+		</gen>
+		<pattern>
+			<req cmd="read"  addr="0x00010100" size="256" burst="3" ts_inc="0"   ts_iu="NS"/>
+			<req cmd="write" addr="0x00010600" size="256" burst="3" ts_inc="10"  ts_iu="NS"/>
+			<req cmd="read"  addr="0x00010200" size="256" burst="3" ts_inc="10"  ts_iu="NS"/>
+		</pattern>
+	</vcpu>
+
+	<vcpu id="2" inst="vapu" freq="1200" bitwidth="256" burst="127" qos="2"  policy="limiter">
+		<gen>
+			<round num="20" interval="2"  ts_unit="US"/>
+			<round num="60" interval="1"  ts_unit="US"/>
+		</gen>
+		<pattern> 
+			<req cmd="read"  addr="0x00001100" size="128"   burst="3" ts_inc="0"   ts_iu="NS"/>
+			<req cmd="write" addr="0x00011600" size="128"   burst="3" ts_inc="100" ts_iu="NS"/>
+			<req cmd="read"  addr="0x00001200" size="128"   burst="3" ts_inc="100" ts_iu="NS"/>
+		</pattern>
+	</vcpu>
+	
+	<vcpu id="3" inst="sysnoc" freq="1200" bitwidth="256" burst="128" qos="1"  policy="limiter">
+		<gen>
+			<round num="0" interval="10" ts_unit="US"/>
+			<round num="0" interval="1"  ts_unit="US"/>
+		</gen>
+		<pattern>
+			<req cmd="read"  addr="0x00001100" size="255" burst="3" ts_inc="0" ts_iu="NS"/>
+			<req cmd="write" addr="0x00001600" size="127" burst="3" ts_inc="0" ts_iu="NS"/>
+			<req cmd="read"  addr="0x00001200" size="16"  burst="3" ts_inc="0" ts_iu="NS"/>
+		</pattern>
+	</vcpu>
+
+
+	<vbus freq="1500" bitwidth="512"  outstand="16" buffer="255" queue="256">
+	<!--sch_mode 0:rr, 1:sp, 2:spl  -->
+		<sch mode="0" />  
+	</vbus>	
+	
+	<vmem id ="0" freq="800" bitwidth="256" delay="5"  buffer="128"  outstand="16"/>
+	<vmem id ="1" freq="800" bitwidth="256" delay="7"  buffer="128"  outstand="16"/>
+	<vmem id ="2" freq="800" bitwidth="256" delay="13" buffer="128"  outstand="16"/>
+	<vmem id ="3" freq="800" bitwidth="256" delay="35" buffer="128"  outstand="16"/>
+</root>
