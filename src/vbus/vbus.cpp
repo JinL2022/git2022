@@ -17,6 +17,8 @@ void vbus::clock_posedge()
 
     switch_resp();
 
+    //do some edit
+
     for (int i = 0; i < 4; i++)
     {
         if (aw_state[i] == ACK)
@@ -279,7 +281,7 @@ void vbus::clock_negedge()
         tlm_sync_enum reply = master_a.nb_transport_fw(*payload, phase);
 
         buffer_cnt[0]--;
-        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  Èç¹ûÊÇ
+        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             sc_assert(phase == W_READY);
             w_state[0] = ACK;
@@ -382,7 +384,7 @@ void vbus::clock_negedge()
         w_state[1] = REQ;
         tlm_sync_enum reply = master_b.nb_transport_fw(*payload, phase);
         buffer_cnt[1]--;
-        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  Èç¹ûÊÇ
+        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             sc_assert(phase == W_READY);
             w_state[1] = ACK;
@@ -485,7 +487,7 @@ void vbus::clock_negedge()
         w_state[2] = REQ;
         tlm_sync_enum reply = master_c.nb_transport_fw(*payload, phase);
         buffer_cnt[2]--;
-        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  Èç¹ûÊÇ
+        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             sc_assert(phase == W_READY);
             w_state[2] = ACK;
@@ -588,7 +590,7 @@ void vbus::clock_negedge()
         w_state[3] = REQ;
         tlm_sync_enum reply = master_d.nb_transport_fw(*payload, phase);
         buffer_cnt[3]--;
-        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  Èç¹ûÊÇ
+        if (reply == TLM_UPDATED)   // state clear->req->ack->clear, or clear->ack->clear,  ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             sc_assert(phase == W_READY);
             w_state[3] = ACK;
@@ -1059,7 +1061,7 @@ vbus::~vbus()
 //read config info
 void vbus::read_config(string cfgname) {
     ptree pt1;
-    read_xml(cfgname.c_str(), pt1, xml_parser::trim_whitespace);   //¶ÁÈëÒ»¸öxmlÎÄ¼þ
+    read_xml(cfgname.c_str(), pt1, xml_parser::trim_whitespace);   //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½xmlï¿½Ä¼ï¿½
 
     ptree child = pt1.get_child("root.vbus");
 
